@@ -24,8 +24,20 @@ app.get('/', (req, res) => {
 });
 
 
+// cors setup 
+//Cors Setup 
+let corsOptions = {
+    origin: ["http://localhost:5173" ],
+    methods: "GET, POST, PUT, DELETE, PATCH, HEAD",
+    allowedHeaders: ['Content-Type', 'Authorization', 'Access-Control-Allow-Origin'],
+    credentials: true,
+    optionsSuccessStatus: 204
+}
+
 app.use(express.json());
-app.use(cors());
+
+
+app.use(cors(corsOptions));
 
 
 app.use("/api/user", userRouter)
