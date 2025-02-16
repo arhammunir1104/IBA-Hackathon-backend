@@ -1,7 +1,10 @@
+
+import "dotenv/config";
 import express from "express";
 import userRouter from "../route/userRoute.js";
 import cors from "cors";
-import "dotenv/config"
+import projectRouter from "../route/projectRoute.js";
+import connectCloudinary from "../config/cloudinary.js";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -9,11 +12,15 @@ const port = process.env.PORT || 3000;
 
 
 //Databast
-import("../config/mongodb.js")
+import("../config/mongodb.js");
+
+// cloudinary 
+connectCloudinary();
+
 
 
 app.get('/', (req, res) => {
-    res.send(`Hello world`);
+    res.send(`Hello world${process.env.CLOUDINARY_API_KEY}`);
 });
 
 
@@ -22,6 +29,8 @@ app.use(cors());
 
 
 app.use("/api/user", userRouter)
+app.use("/api/project", projectRouter)
+
 
 
 

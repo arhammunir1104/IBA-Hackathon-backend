@@ -9,7 +9,6 @@ const authUser = async (req, res, next) =>{
 
         const {token} = req.headers;
 
-        console.log(token);
 
         if(!token) {
             return next(new ErrorHandler("You are not authorize" , 400));
