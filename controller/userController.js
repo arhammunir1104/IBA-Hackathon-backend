@@ -26,9 +26,15 @@ const registerUser = async (req, res, next) =>{
         const {name, email, password, registerType} = req.body;
 
         if(registerType === "google"){
+
+            const isUser = await userModel.findOne({email: email});
+
+            if(isUser !== undefined){
+                return next(new ErrorHandler( "This email already exists.", 400));
+            }
         
         if(!name || !email){
-            return next(new ErrorHandler( "Please Enter all Details", 400))
+            return next(new ErrorHandler( "Please Enter all Details", 400));
         }
         if(!validator.isEmail(email)){
             return next(new ErrorHandler( "Please Enter valid Email.", 400))   
@@ -54,6 +60,11 @@ const registerUser = async (req, res, next) =>{
             }
             if(!validator.isEmail(email)){
                 return next(new ErrorHandler( "Please Enter valid Email.", 400))   
+            }
+            const isUser = await userModel.findOne({email: email});
+
+            if(isUser !== undefined){
+                return next(new ErrorHandler( "This email already exists.", 400));
             }
             if(password.length < 8){
                 return next(new ErrorHandler( "Password must be greater than 8 characters.", 400))   
