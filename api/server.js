@@ -20,7 +20,7 @@ connectCloudinary();
 
 
 app.get('/', (req, res) => {
-    res.send(`Hello world${process.env.CLOUDINARY_API_KEY}`);
+    res.send(`Hello world`);
 });
 
 
